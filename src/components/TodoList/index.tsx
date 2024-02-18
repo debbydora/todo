@@ -30,7 +30,15 @@ const TodoList = ({ tasks, toggleTask, index }: TodoProps) => {
               <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
             </svg>
           </div>
-          <p className="text-base text-[#071D55] font-medium">{tasks?.text}</p>
+          <p
+            className={`${
+              tasks?.completed
+                ? "line-through  text-[#8D8D8D] font-normal"
+                : "text-[#071D55]"
+            }text-base  font-medium`}
+          >
+            {tasks?.text}
+          </p>
         </label>
       </div>
 

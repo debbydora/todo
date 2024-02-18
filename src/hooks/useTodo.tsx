@@ -8,32 +8,40 @@ const useTodo = () => {
     { text: "Play Paddle with friends", completed: false },
     { text: "Burger BBQ with family", completed: false },
   ]);
-    const [inputValue, setInputValue] = useState("");
-    const [add,setAdd] = useState(false)
-    
+  const [inputValue, setInputValue] = useState("");
+  const [add, setAdd] = useState(false);
+
   const toggleTask = (index: number) => {
     const updatedTasks = tasks.map((task, i) =>
       i === index ? { ...task, completed: !task.completed } : task
     );
-      setTasks(updatedTasks);
-    };
-    
+    setTasks(updatedTasks);
+  };
+
   const addTask = () => {
     if (inputValue.trim() !== "") {
       setTasks([...tasks, { text: inputValue, completed: false }]);
       setInputValue("");
-      }
-      
+    }
+  };
+  const editTask = (index: number, newText: any) => {
+    const updatedTasks = tasks.map((task, i) =>
+      i === index ? { ...task, text: newText } : task
+    );
+    setTasks(updatedTasks);
+  };
+  const deleteTask = (index: number) => {
+    setTasks(tasks.filter((_, i) => i !== index));
   };
   console.log(tasks, "taska");
   return {
     tasks,
     toggleTask,
-      addTask,
+    addTask,
     inputValue,
-      setInputValue,
-      add,
-    setAdd
+    setInputValue,
+    add,
+    setAdd,
   };
 };
 
