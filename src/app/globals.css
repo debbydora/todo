@@ -16,12 +16,16 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+* {
+  box-sizing: border-box;
+}
+
+.contain > input:checked + label .rounded-full {
+  background-color: #53da69;
+  border: 1.5px solid #49c25d; /* Change to your desired color */
+}
+
+/* Show the checkmark icon when the checkbox is checked */
+.contain > input:checked + label svg {
+  display: block;
 }
