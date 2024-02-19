@@ -1,15 +1,29 @@
+"use client";
+import useTodo from "@/hooks/useTodo";
+
 type TodoProps = {
   tasks: any;
 
-  toggleTask: (index:number) => void;
+  toggleTask: (index: number) => void;
   index: number;
+  setAdd: (e: boolean) => void;
+  setEdit: (e: boolean) => void;
+  setSaveIndex: (index: number) => void;
+    editToggle:boolean
+  
 };
 
-const TodoList = ({ tasks, toggleTask, index }: TodoProps) => {
-  console.log(index, "list index");
+const TodoList = ({
+  tasks,
+  toggleTask,
+  setAdd,
+  index,
+  setSaveIndex,
+    setEdit,
+  editToggle
+}: TodoProps) => {
   return (
     <div className="bg-white shadow-listShadow px-4 flex justify-between items-center rounded-md w-[382px] h-[91px]">
-      {/* <input type="checkbox" /> */}
       <div className="flex items-center contain">
         <input
           type="checkbox"
@@ -42,7 +56,14 @@ const TodoList = ({ tasks, toggleTask, index }: TodoProps) => {
         </label>
       </div>
 
-      <button className="text-base text-[#071D55] font-medium border-2 border-[#071D55] p-3 rounded-md">
+      <button
+        onClick={() => {
+          setAdd(false);
+          setEdit(!editToggle);
+          setSaveIndex(index);
+        }}
+        className="text-base text-[#071D55] font-medium border-2 border-[#071D55] p-3 rounded-md"
+      >
         Edit
       </button>
     </div>

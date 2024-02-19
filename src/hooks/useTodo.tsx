@@ -1,17 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import {  useState } from "react";
 
 const useTodo = () => {
-  const [tasks, setTasks] = useState([
-    { text: "Training at the Gym", completed: false },
+  const initialState = [
+    { text: "Training at the Gym", completed: true },
     { text: "Play Paddle with friends", completed: false },
     { text: "Burger BBQ with family", completed: false },
-  ]);
+  ];
+
+  const [tasks, setTasks] = useState(initialState);
   const [inputValue, setInputValue] = useState("");
-  const [add, setAdd] = useState(false);
+  const [addToggle, setAdd] = useState(true);
+  const [editToggle, setEdit] = useState(false);
+  const [saveIndex, setSaveIndex] = useState<number | null>(null);
 
   const toggleTask = (index: number) => {
+    setSaveIndex(index);
     const updatedTasks = tasks.map((task, i) =>
       i === index ? { ...task, completed: !task.completed } : task
     );
@@ -20,28 +25,39 @@ const useTodo = () => {
 
   const addTask = () => {
     if (inputValue.trim() !== "") {
-      setTasks([...tasks, { text: inputValue, completed: false }]);
+        setTasks((prev) => [...prev, { text: inputValue, completed: false }]);
       setInputValue("");
     }
   };
-  const editTask = (index: number, newText: any) => {
+
+  const editTask = (index: number | null, newText: any) => {
     const updatedTasks = tasks.map((task, i) =>
       i === index ? { ...task, text: newText } : task
     );
     setTasks(updatedTasks);
+    setInputValue("");
+    setSaveIndex(null);
   };
-  const deleteTask = (index: number) => {
+
+  const deleteTask = (index: number | null) => {
     setTasks(tasks.filter((_, i) => i !== index));
+    setEdit(false);
   };
-  console.log(tasks, "taska");
+
   return {
-    tasks,
     toggleTask,
     addTask,
     inputValue,
     setInputValue,
-    add,
+    addToggle,
     setAdd,
+    editTask,
+    saveIndex,
+    setSaveIndex,
+    deleteTask,
+    editToggle,
+    setEdit,
+    tasks,
   };
 };
 
